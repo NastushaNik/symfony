@@ -1,0 +1,17 @@
+{% extends '@App/layout.html.twig' %}
+
+{% block body %}
+
+<h1>Contact Us</h1>
+
+   {{ form_start(feedback_form, {'attr': {'novalidate': 'novalidate'}}) }}
+
+        {{ form_row(feedback_form.email) }}
+
+    {{ form_end(feedback_form) }}
+
+{% endblock %}
+
+{% block stylesheets %}
+
+{% endblock %}
