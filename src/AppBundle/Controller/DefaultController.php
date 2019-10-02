@@ -10,13 +10,16 @@ use Symfony\Component\HttpFoundation\Request;
 class DefaultController extends Controller
 {
     private $doctrine;
+
     /**
      * @Route("/", name="homepage")
      * @Template()
+     * @param Request $request
+     * @return array
      */
     public function indexAction(Request $request)
     {
-        dump($this->get('test_service')->upload());
+        //dump($this->get('test_service')->upload());
         $name = 'Bob';
         $a = 1;
         

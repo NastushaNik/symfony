@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity;
 
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -58,7 +59,7 @@ class Product
 
     /**
      * @var ArrayCollection
-     * 
+     *
      * @ORM\ManyToMany(targetEntity = "Tag", inversedBy = "products")
      */
     private $tags;
@@ -204,11 +205,11 @@ class Product
     /**
      * Add tag
      *
-     * @param \AppBundle\Entity\Tag $tag
+     * @param Tag $tag
      *
      * @return Product
      */
-    public function addTag(\AppBundle\Entity\Tag $tag)
+    public function addTag(Tag $tag)
     {
         $this->tags[] = $tag;
 
@@ -218,9 +219,9 @@ class Product
     /**
      * Remove tag
      *
-     * @param \AppBundle\Entity\Tag $tag
+     * @param Tag $tag
      */
-    public function removeTag(\AppBundle\Entity\Tag $tag)
+    public function removeTag(Tag $tag)
     {
         $this->tags->removeElement($tag);
     }
@@ -228,7 +229,7 @@ class Product
     /**
      * Get tags
      *
-     * @return \Doctrine\Common\Collections\Collection
+     * @return Collection
      */
     public function getTags()
     {

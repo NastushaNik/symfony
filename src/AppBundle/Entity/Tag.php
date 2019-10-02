@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -31,7 +32,7 @@ class Tag
 
     /**
      * @var ArrayCollection
-     * 
+     *
      * @ORM\ManyToMany(targetEntity = "Product", mappedBy = "tags")
      */
     private $products;

@@ -4,6 +4,7 @@ namespace AppBundle\Repository;
 
 use AppBundle\Entity\Category;
 use Doctrine\ORM\EntityRepository;
+use Doctrine\ORM\Query;
 
 /**
  * ProductRepository
@@ -19,7 +20,7 @@ class ProductRepository extends EntityRepository
 		return $this
 			->createQueryBuilder('product')
 			->getQuery()
-			->getResult(\Doctrine\ORM\Query::HYDRATE_ARRAY)
+			->getResult(Query::HYDRATE_ARRAY)
 		;
 	}
 

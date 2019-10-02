@@ -22,10 +22,11 @@ class ProductController extends Controller
        $products =  $this
            ->getDoctrine()
            ->getRepository('AppBundle:Product')
-           ->findBy(['active' => true])
-        ;
+           //->findBy(['active' => true])
+           ->findAllProducts()
+       ;
 
-         dump($products);
+       //dump($products);
 
         return ['products' => $products];
     }
@@ -34,6 +35,8 @@ class ProductController extends Controller
     /**
      * @Route("/products/{id}", name="product_page")
      * @Template()
+     * @param $id
+     * @return array
      */
     public function showAction($id)
     {
@@ -46,7 +49,7 @@ class ProductController extends Controller
         //Выводим имя категории продукта
         //$categoryName = $product->getCategory()->getName();
         
-        dump($product);
+        //dump($product);
 
         //получаем все продукты определенной категории
         // $category = $product->getCategory();
