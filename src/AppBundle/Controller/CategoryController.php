@@ -13,6 +13,7 @@ class CategoryController extends Controller
     /**
      * @Route("/category/{id}", name="category_page")
      * @Template()
+     * @param Category $category
      * @return array
      */
     public function showAction(Category $category)

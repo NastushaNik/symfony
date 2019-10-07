@@ -26,7 +26,7 @@ class ProductController extends Controller
            ->findAllProducts()
        ;
 
-       //dump($products);
+       dump($products);
 
         return ['products' => $products];
     }
@@ -49,7 +49,7 @@ class ProductController extends Controller
         //Выводим имя категории продукта
         //$categoryName = $product->getCategory()->getName();
         
-        //dump($product);
+        dump($product);
 
         //получаем все продукты определенной категории
         // $category = $product->getCategory();

@@ -30,7 +30,7 @@ services:
         tags: ['controller.service_arguments']   
     
     test_service:
-        class: \AppBundle\Service\UploaderService
+        class: AppBundle\Service\UploaderService
         public: true
         arguments: ["%kernel.project_dir%", "%upload_dir%", "@logger", "@doctrine"]
 

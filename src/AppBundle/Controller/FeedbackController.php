@@ -8,6 +8,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 
 
@@ -16,6 +17,8 @@ class FeedbackController extends Controller
     /**
      * @Route("/contact-us", name="contact-us")
      * @Template()
+     * @param Request $request
+     * @return array|RedirectResponse
      */
     public function contactAction(Request $request)
     {
@@ -24,7 +27,7 @@ class FeedbackController extends Controller
         $form->add('submit', SubmitType::class);
         $form->handleRequest($request);
 
-        if ($form->isValid() && $form->isSubmitted()) {
+        if ($form->isSubmitted() && $form->isValid()) {
             //можно использовать getData, вместо $feedback = new Feedback();
             //$feedback = $form->getData();
             
@@ -33,10 +36,12 @@ class FeedbackController extends Controller
             //получаем Ip адрес клиента
             $feedback->setIpAddress($request->getClientIp());
             //что пишем в БД
+            //persist может быть много
             $em->persist($feedback);
             //сама запись в БД
+            //flush один, после многих persist
             $em->flush();
-            //сообщение оботправке(ошибке)
+            //сообщение об отправке(ошибке)
             $this->addFlash('success', 'Saved!');
             $this->addFlash('fail', 'Not saved!');
 

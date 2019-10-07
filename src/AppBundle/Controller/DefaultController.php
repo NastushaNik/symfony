@@ -19,7 +19,7 @@ class DefaultController extends Controller
      */
     public function indexAction(Request $request)
     {
-        //dump($this->get('test_service')->upload());
+        dump($this->get('test_service')->upload());
         $name = 'Bob';
         $a = 1;
         

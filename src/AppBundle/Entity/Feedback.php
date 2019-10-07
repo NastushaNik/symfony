@@ -26,7 +26,7 @@ class Feedback
      * @var string
      *
      * @ORM\Column(name="name", type="string", length=255)
-     * @Assert\NotBlank(message="WRONG")
+     * @Assert\NotBlank(message="custom WRONG in Feedback.php")
      */
     private $name;
     /**
