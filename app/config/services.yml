@@ -34,6 +34,11 @@ services:
         public: true
         arguments: ["%kernel.project_dir%", "%upload_dir%", "@logger", "@doctrine"]
 
+    json_service:
+        class: AppBundle\Service\JsonExportService
+        public: true
+        arguments: ["%json_export_dir%", '@logger']
+
     json_placeholder:
         class: AppBundle\Service\JsonPlaceholderClient
         public: true

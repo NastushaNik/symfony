@@ -30,9 +30,9 @@ class Category
     private $name;
 
     /**
-     * @var string
+     * @var Category
      * 
-     * @ORM\OneToMany(targetEntity = "Product", mappedBy = "category") 
+     * @ORM\OneToMany(targetEntity = "Product", mappedBy = "category")
      */
     private $products;
 
@@ -140,5 +140,11 @@ class Category
     public function getActive()
     {
         return $this->active;
+    }
+
+    public function __toString()
+    {
+        // TODO: Implement __toString() method.
+        return $this->name;
     }
 }

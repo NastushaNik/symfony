@@ -52,7 +52,7 @@ class Product
     private $active;
 
     /**
-     * @var string
+     * @var Category
      *
      * @ORM\ManyToOne(targetEntity = "Category", inversedBy = "products")
      */
@@ -200,7 +200,7 @@ class Product
      */
     public function __construct()
     {
-        $this->tags = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->tags = new ArrayCollection();
     }
 
     /**

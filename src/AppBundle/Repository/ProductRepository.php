@@ -20,7 +20,7 @@ class ProductRepository extends EntityRepository
 		return $this
 			->createQueryBuilder('product')
 			->getQuery()
-			->getResult(Query::HYDRATE_ARRAY)
+			->getResult()
 		;
 	}
 

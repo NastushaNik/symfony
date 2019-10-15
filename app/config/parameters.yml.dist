@@ -18,3 +18,4 @@ parameters:
     # A secret key that's used to generate certain security-related tokens
     secret: ThisTokenIsNotSoSecretChangeIt
     upload_dir: uploads
+    json_export_dir: "%kernel.logs_dir%/../json_export"

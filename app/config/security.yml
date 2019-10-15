@@ -5,7 +5,23 @@ security:
     # https://symfony.com/doc/current/security.html#b-configuring-how-users-are-loaded
     providers:
         in_memory:
-            memory: ~
+            memory:
+                users:
+                    customer1:
+                        password: customer1
+                        roles: 'ROLE_CUSTOMER'
+
+                    customer2:
+                        password: customer2
+                        roles: 'ROLE_CUSTOMER'
+
+                    customer3:
+                        password: customer3
+                        roles: 'ROLE_CUSTOMER'
+
+                    admin:
+                        password: admin
+                        roles: 'ROLE_ADMIN'
 
     firewalls:
         # disables authentication for assets and the profiler, adapt it according to your needs
@@ -14,7 +30,13 @@ security:
             security: false
 
         main:
-            anonymous: ~
+            anonymous: true
+            form_login:
+                login_path: login
+                check_path: login
+            logout:
+                path: /logout
+                target: /
             # activate different ways to authenticate
 
             # https://symfony.com/doc/current/security.html#a-configuring-how-your-users-will-authenticate
@@ -22,3 +44,7 @@ security:
 
             # https://symfony.com/doc/current/security/form_login_setup.html
             #form_login: ~
+
+    access_control:
+        - { path : ^/admin, roles: ROLE_ADMIN }
+        - { path : ^/customers, roles: ROLE_CUSTOMER }

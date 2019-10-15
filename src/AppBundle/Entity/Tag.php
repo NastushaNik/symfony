@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -106,7 +107,7 @@ class Tag
     /**
      * Get products
      *
-     * @return \Doctrine\Common\Collections\Collection
+     * @return Collection
      */
     public function getProducts()
     {
