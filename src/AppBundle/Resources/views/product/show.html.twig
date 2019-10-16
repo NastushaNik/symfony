@@ -2,13 +2,19 @@
 
 {% block body %}
 
-<h1>{{product.title}}</h1>
-
-<p>Category: {{product.category}}</p>
-<p>{{product.description}}</p>
-<hr>
-    {{ product.price }}
-    
+<div class="thumbnail" style="text-align: center; margin-top: 20px; padding: 20px;">
+    <img src="https://www.mirprognozov.ru/uploads/images/old/1452868777-95e48841e8ebcc94e135134c7a20f455f60b1add.png" alt="" style="max-width: 400px;">
+    <div class="caption">
+        <h3>{{ product.title }} </h3>
+        <p>Category: {{product.category}}</p>
+        <p>{{product.description}}</p>
+        <small>{{ product.price }} UAH</small>
+        <hr>
+        <p>
+            <a href="" class="btn btn-dark" role="button">Add To Cart</a>
+        </p>
+    </div>
+</div>
 {% endblock %}
 
 {% block stylesheets %}

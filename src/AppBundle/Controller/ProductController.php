@@ -19,18 +19,25 @@ class ProductController extends Controller
      * @Route("/products", name="product_list")
      * @Template()
      */
-    public function indexAction()
+    public function indexAction(Request $request)
     {
-       $products =  $this
+        $query =  $this
            ->getDoctrine()
            ->getRepository('AppBundle:Product')
            //->findBy(['active' => true])
            ->findAllProducts()
        ;
 
+        $paginator  = $this->get('knp_paginator');
+        $pagination = $paginator->paginate(
+            $query, /* query NOT result */
+            $request->query->getInt('page', 1), /*page number*/
+            9 /*limit per page*/
+        );
+
        //dump($products);
 
-        return ['products' => $products];
+        return ['pagination' => $pagination];
     }
 
 

@@ -1,0 +1,38 @@
+{% extends '@App/layout.html.twig' %}
+
+{% block body %}
+	<h1>Cart</h1>
+    <table class="table">
+    	<tr>
+    		<td>Id</td>
+    		<td>Title</td>
+    		<td>Price</td>
+			<td>Category</td>
+    		<td>Quantity</td>
+    	</tr>
+    	{% for product in products %}
+    		<tr>
+    			<td>#{{ product.id }}</td>
+    			<td>{{ product.title }}</td>
+    			<td>{{ product.price }}</td>
+    			<td>{{ product.category }}</td>
+				<td>{{ cart[product.id] }}</td>
+
+    		</tr>
+
+
+    	{% endfor %}
+    </table>
+
+{#	<td>#}
+{#		<a href="{{ path('product_page', {id: product.id}) }}">View</a>#}
+{#		<a href="{{ path('products_export', {id: product.id}) }}">Export</a>#}
+{#		<a href="{{ path('product_edit', {id: product.id}) }}">Edit</a>#}
+{#		<a href="{{ path('product_remove', {id: product.id}) }}">Remove</a>#}
+{#	</td>#}
+
+{% endblock %}
+
+{% block stylesheets %}
+
+{% endblock %}

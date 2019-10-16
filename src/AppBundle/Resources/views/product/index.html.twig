@@ -3,33 +3,53 @@
 {% block body %}
 
 <h1>Products</h1>
-<table class="table">
-	<tr>
-		<td>Id</td>
-		<td>Title</td>
-		<td>Price</td>
-		<td>Category</td>
-		<td>Actions</td>
-	</tr>
-	{% for product in products %}
-		<tr>
-			<td>{{ product.id }}</td>
-			<td>{{ product.title }}</td>
-			<td>{{ product.price }}</td>
-			<td>{{ product.category }}</td>
-			<td>
-				<a href="{{ path('product_page', {id: product.id}) }}">View</a>
-				<a href="{{ path('products_export', {id: product.id}) }}">Export</a>
-				<a href="{{ path('product_edit', {id: product.id}) }}">Edit</a>
-				<a href="{{ path('product_remove', {id: product.id}) }}">Remove</a>
-			</td>
-		</tr>
+	<div class="navigation">
+		{{ knp_pagination_render(pagination) }}
+	</div>
+	<div class="row">
+		{% for product in pagination %}
+			<div class="col-sm-6 col-md-4">
+				<div class="thumbnail" style="text-align: center; margin-top: 20px; padding: 20px;">
+					<img src="https://www.mirprognozov.ru/uploads/images/old/1452868777-95e48841e8ebcc94e135134c7a20f455f60b1add.png" alt="" style="max-width: 200px;">
+					<div class="caption">
+						<h3>{{ product.title }} <small>{{ product.price }} UAH</small> </h3>
+						<p>
+							<a href="{{ path('product_page', {id: product.id}) }}" class="btn btn-primary" role="button">Details</a>
+							<a href="{{ path('add_to_cart', {id: product.id}) }}" class="btn btn-dark" role="button">Add To Cart</a>
+						</p>
+					</div>
+				</div>
+			</div>
+		{% endfor %}
+	</div>
+	<div class="navigation">
+		{{ knp_pagination_render(pagination) }}
+	</div>
+{#<table class="table">#}
+{#	<tr>#}
+{#		<td>Id</td>#}
+{#		<td>Title</td>#}
+{#		<td>Price</td>#}
+{#		<td>Category</td>#}
+{#		<td>Actions</td>#}
+{#	</tr>#}
+{#	{% for product in products %}#}
+{#		<tr>#}
+{#			<td>{{ product.id }}</td>#}
+{#			<td>{{ product.title }}</td>#}
+{#			<td>{{ product.price }}</td>#}
+{#			<td>{{ product.category }}</td>#}
+{#			<td>#}
+{#				<a href="{{ path('product_page', {id: product.id}) }}">View</a>#}
+{#				<a href="{{ path('products_export', {id: product.id}) }}">Export</a>#}
+{#				<a href="{{ path('product_edit', {id: product.id}) }}">Edit</a>#}
+{#				<a href="{{ path('product_remove', {id: product.id}) }}">Remove</a>#}
+{#			</td>#}
+{#		</tr>#}
 
-{#		{% set url = path('product_page', {id: product.id}) %}#}
-{#		<a href="{{ url }}"> {{ product.title }} </a> {{ product.price }}  <br>#}
 
-	{% endfor %}
-</table>
+{#	{% endfor %}#}
+{#</table>#}
 
 
 {% endblock %}
