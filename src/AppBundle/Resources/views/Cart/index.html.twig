@@ -10,19 +10,24 @@
 			<td>Category</td>
     		<td>Quantity</td>
     	</tr>
-    	{% for product in products %}
+    	{% for item in cartItem %}
     		<tr>
-    			<td>#{{ product.id }}</td>
-    			<td>{{ product.title }}</td>
-    			<td>{{ product.price }}</td>
-    			<td>{{ product.category }}</td>
-				<td>{{ cart[product.id] }}</td>
+    			<td>#{{ item.product.id }}</td>
+    			<td>{{ item.product.title }}</td>
+    			<td>{{ item.product.price }}</td>
+    			<td>{{ item.product.category }}</td>
+				<td>{{ item.amount }}</td>
 
     		</tr>
 
 
     	{% endfor %}
     </table>
+	<h3>Total : {{ total }} UAH</h3>
+
+{#	{% if cartIsEmpty %}#}
+	<hr>
+	<a href="{{ path('place_order') }}" class="btn btn-success">Place order</a>
 
 {#	<td>#}
 {#		<a href="{{ path('product_page', {id: product.id}) }}">View</a>#}

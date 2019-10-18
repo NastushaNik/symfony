@@ -43,6 +43,16 @@ services:
         class: AppBundle\Service\JsonPlaceholderClient
         public: true
 
+    cart:
+        class: AppBundle\Service\CartService
+        public: true
+        arguments: ["@request_stack", "@doctrine"]
+
+    order:
+        class: AppBundle\Service\OrderService
+        public: true
+        arguments: ['@cart', "@doctrine"]
+
     # add more services, or override services that need manual wiring
     # AppBundle\Service\ExampleService:
     #     arguments:

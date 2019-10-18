@@ -23,30 +23,11 @@ class CartController extends Controller
      */
     public function addToCartAction(Request $request)
     {
-        //get cookie
-        $cartCookie = $request->cookies->get('cart');
-
         //get id product
         $id = (int) $request->get('id');
 
-        //if cookie is empty
-        if (!$cartCookie){
-            $cart = [
-                $id => 1
-            ];
-        } else{
-            $cart = unserialize($cartCookie);
-            if (empty($cart[$id])){
-                $cart[$id] = 1;
-            } else{
-                $cart[$id]++;
-            }
-        }
-
-        $cartCookie = serialize($cart);
-
-        //save to cookie
-        $cookie = new Cookie('cart', $cartCookie, time() + 60 * 60 * 24 * 7);
+        //use CartService
+        $cookie = $this->get('cart')->addProduct($id);
 
         //redirect
         $redirectUrl = $this->get('router')->generate('product_list');
@@ -62,27 +43,15 @@ class CartController extends Controller
      *
      * @Route("/cart", name="cart_index")
      * @Template()
-     * @return array
+     * @return array|RedirectResponse
      */
     public function indexAction(Request $request)
     {
-        //get cart from cookies
-        $cartCookie = $request->cookies->get('cart');
-        if (!$cartCookie){
-            return ['products' => []];
-        }
-        $cart = unserialize($cartCookie);
 
-        //get ids
-        $productsIds = array_keys($cart);
+        $cartItem = $this->get('cart')->getContents();
+        $total = $this->get('cart')->getTotal($cartItem);
 
-        //get products by ids
-        $products = $this
-            ->get('doctrine')
-            ->getRepository('AppBundle:Product')
-            ->findBy(['id' => $productsIds]);
+        return ['cartItem' => $cartItem, 'total' => $total];
 
-        //render
-        return ['products' => $products, 'cart' => $cart];
     }
 }
