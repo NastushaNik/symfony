@@ -47,11 +47,9 @@ class CartController extends Controller
      */
     public function indexAction(Request $request)
     {
+        $cart = $this->get('cart')->getContents();
 
-        $cartItem = $this->get('cart')->getContents();
-        $total = $this->get('cart')->getTotal($cartItem);
-
-        return ['cartItem' => $cartItem, 'total' => $total];
+        return ['cart' => $cart];
 
     }
 }

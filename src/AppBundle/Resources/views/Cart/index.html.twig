@@ -10,7 +10,7 @@
 			<td>Category</td>
     		<td>Quantity</td>
     	</tr>
-    	{% for item in cartItem %}
+    	{% for item in cart.items %}
     		<tr>
     			<td>#{{ item.product.id }}</td>
     			<td>{{ item.product.title }}</td>
@@ -23,7 +23,7 @@
 
     	{% endfor %}
     </table>
-	<h3>Total : {{ total }} UAH</h3>
+	<h3>Total : {{ cart.total }} UAH</h3>
 
 {#	{% if cartIsEmpty %}#}
 	<hr>

@@ -5,6 +5,7 @@ namespace AppBundle\Service;
 
 
 
+use AppBundle\Model\Cart;
 use AppBundle\Model\CartItem;
 use Doctrine\Bundle\DoctrineBundle\Registry;
 use Symfony\Component\HttpFoundation\Cookie;
@@ -76,18 +77,7 @@ class CartService
         }
 
         //render
-        return $collection;
-    }
-
-    public function getTotal($cartItems)
-    {
-        $total = 0;
-
-        foreach ($cartItems as $item){
-            $total += $item->amount * $item->product->getPrice();
-        }
-
-        return $total;
+        return new Cart($collection);
     }
 
     public function getCartArray()
