@@ -27,14 +27,9 @@ class CartController extends Controller
         $id = (int) $request->get('id');
 
         //use CartService
-        $cookie = $this->get('cart')->addProduct($id);
+        $this->get('cart')->addProduct($id);
 
-        //redirect
-        $redirectUrl = $this->get('router')->generate('product_list');
-        $response = new RedirectResponse($redirectUrl);
-        $response->headers->setCookie($cookie);
-
-        return $response;
+        return $this->redirectToRoute('product_list');
 
     }
 

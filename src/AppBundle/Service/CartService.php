@@ -10,6 +10,7 @@ use AppBundle\Model\CartItem;
 use Doctrine\Bundle\DoctrineBundle\Registry;
 use Symfony\Component\HttpFoundation\Cookie;
 use Symfony\Component\HttpFoundation\RequestStack;
+use Symfony\Component\HttpFoundation\Response;
 
 class CartService
 {
@@ -21,6 +22,17 @@ class CartService
         $this->request = $requestStack->getCurrentRequest();
         $this->doctrine = $doctrine;
 
+    }
+
+    private function setCookieResponse(Cookie $cookie)
+    {
+        //create response
+        $response = new Response();
+        //set cookie response
+        $response->headers->setCookie($cookie);
+
+        //send headers
+        $response->sendHeaders();
     }
 
     public function addProduct($id)
@@ -44,8 +56,10 @@ class CartService
 
         $cartCookie = serialize($cart);
 
-        //return cookie
-        return new Cookie('cart', $cartCookie, time() + 60 * 60 * 24 * 7);
+        //create cookie
+        $cookie = new Cookie('cart', $cartCookie, time() + 60 * 60 * 24 * 7);
+
+        $this->setCookieResponse($cookie);
     }
 
     public function getContents()
@@ -80,16 +94,14 @@ class CartService
         return new Cart($collection);
     }
 
-    public function getCartArray()
+    public function clear()
     {
-        //get cart
-        $cartCookie = $this->request->cookies->get('cart');
-        if (!$cartCookie){
-            return null;
-        }
+        //create empty cookie
+        $cookie = new Cookie('cart', serialize([]), time() + 60 * 60 * 24 * 7);
 
-        return unserialize($cartCookie);
+        $this->setCookieResponse($cookie);
     }
+
 
     public function isEmpty()
     {

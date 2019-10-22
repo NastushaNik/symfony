@@ -28,24 +28,15 @@ class OrderService
     {
         $em = $this->doctrine->getManager();
 
-        $cart = $this->cartService->getCartArray();
+        $cart = $this->cartService->getContents();
 
-        //get ids
-        $productsIds = array_keys($cart);
-
-        //get products by ids
-        $products = $this->doctrine
-            ->getRepository('AppBundle:Product')
-            ->findBy(['id' => $productsIds])
-        ;
-
-        foreach ($products as $product){
-            $amount = $cart[$product->getId()];
+        foreach ($cart->getItems() as $item){
+            $amount = $item->amount;
             for ($i = 1; $i <= $amount; $i++){
                 $orderItem = (new OrderItem())
                     ->setOrder($order)
-                    ->setProduct($product)
-                    ->setPrice($product->getPrice())
+                    ->setProduct($item->product)
+                    ->setPrice($item->product->getPrice())
                 ;
                 $em->persist($orderItem); //like git add
             }

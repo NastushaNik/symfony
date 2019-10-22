@@ -40,6 +40,13 @@ class OrderController extends Controller
             $orderService = $this->get('order');
             $orderService->placeOrder($order);
 
+
+//            $redirectUrl = $this->get('router')->generate('homepage');
+            $this->get('cart')->clear();
+
+//            $response = new RedirectResponse($redirectUrl);
+//            $response->headers->setCookie($emptyCookie);
+
             return $this->redirectToRoute('homepage');
         }
 

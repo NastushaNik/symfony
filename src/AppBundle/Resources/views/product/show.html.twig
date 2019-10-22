@@ -11,7 +11,7 @@
         <small>{{ product.price }} UAH</small>
         <hr>
         <p>
-            <a href="" class="btn btn-dark" role="button">Add To Cart</a>
+            <a href="{{ path('add_to_cart', {id: product.id}) }}" class="btn btn-dark" role="button">Add To Cart</a>
         </p>
     </div>
 </div>
