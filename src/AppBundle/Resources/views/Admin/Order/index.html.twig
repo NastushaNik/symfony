@@ -1,0 +1,11 @@
+{% extends '@App/admin_layout.html.twig' %}
+
+{% block content %}
+
+    {% for order in orders %}
+
+        <a href="{{ path('admin_order_show', {id:order.id} ) }}">#{{ order.id }} from {{ order.created|date('Y-m-d H:i:s') }} by <b>{{ order.customerName }}</b> </a><br>
+
+    {% endfor %}
+
+{% endblock %}

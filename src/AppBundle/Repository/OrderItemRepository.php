@@ -2,6 +2,8 @@
 
 namespace AppBundle\Repository;
 
+use AppBundle\Entity\CustomerOrder;
+
 /**
  * OrderItemRepository
  *
@@ -10,4 +12,16 @@ namespace AppBundle\Repository;
  */
 class OrderItemRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function findGroupedByOrder(CustomerOrder $order)
+    {
+        return $this->createQueryBuilder('orderItem')
+                    ->select('count(orderItem) as item_count, orderItem as item')
+                    ->where('orderItem.order = :order')
+                    ->groupBy('orderItem.price, orderItem.product')
+                    ->orderBy('orderItem.product')
+                    ->setParameter('order', $order)
+                    ->getQuery()
+                    ->getResult()
+            ;
+    }
 }

@@ -1,0 +1,18 @@
+{% extends '@App/admin_layout.html.twig' %}
+
+{% block content %}
+
+    <h1>Order Info</h1>
+    Customer: {{ order.customerName }} {{ order.customerEmail }}<br>
+    Info: {{ order.info }}
+    <br>
+    <h1>Order Items</h1>
+    {% for element in items %}
+        {% set orderItem = element.item %}
+        {% set count = element.item_count %}
+        #{{ orderItem.product.id }} {{ orderItem.product.title }}: <b> {{ orderItem.price }} UAH</b>, amount: {{ count }} <br>
+
+    {% endfor %}
+
+{% endblock %}
+
