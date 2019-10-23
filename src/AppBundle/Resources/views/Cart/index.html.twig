@@ -10,20 +10,20 @@
 			<td>Category</td>
     		<td>Quantity</td>
     	</tr>
-    	{% for item in cart.items %}
-    		<tr>
-    			<td>#{{ item.product.id }}</td>
-    			<td>{{ item.product.title }}</td>
-    			<td>{{ item.product.price }}</td>
-    			<td>{{ item.product.category }}</td>
-				<td>{{ item.amount }}</td>
+		{% if cart.items is defined %}
+			{% for item in cart.items %}
+				<tr>
+					<td>#{{ item.product.id }}</td>
+					<td>{{ item.product.title }}</td>
+					<td>{{ item.price|number_format(2) }}</td>
+					<td>{{ item.product.category }}</td>
+{#					<td>{{ item.amount }}</td>#}
 
-    		</tr>
-
-
-    	{% endfor %}
+				</tr>
+			{% endfor %}
     </table>
 	<h3>Total : {{ cart.total }} UAH</h3>
+	{% endif %}
 
 {#	{% if cartIsEmpty %}#}
 	<hr>

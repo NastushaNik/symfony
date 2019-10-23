@@ -16,18 +16,16 @@ use Symfony\Component\HttpFoundation\Response;
 class CartController extends Controller
 {
     /**
-     * @param Request $request
-     *
-     * @Route("/cart/{id}/add", name="add_to_cart", requirements={"id":"[0-9]+"})
+     * @param $id
      * @return RedirectResponse
+     * @Route("/cart/{id}/add", name="add_to_cart", requirements={"id":"[0-9]+"})
      */
-    public function addToCartAction(Request $request)
+    public function addToCartAction($id)
     {
-        //get id product
-        $id = (int) $request->get('id');
+        $product = $this->get('doctrine')->getRepository('AppBundle:Product')->find($id);
 
         //use CartService
-        $this->get('cart')->addProduct($id);
+        $this->get('cart')->addProduct($product);
 
         return $this->redirectToRoute('product_list');
 

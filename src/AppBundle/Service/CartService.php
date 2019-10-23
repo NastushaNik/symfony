@@ -5,6 +5,8 @@ namespace AppBundle\Service;
 
 
 
+use AppBundle\Entity\OrderItem;
+use AppBundle\Entity\Product;
 use AppBundle\Model\Cart;
 use AppBundle\Model\CartItem;
 use Doctrine\Bundle\DoctrineBundle\Registry;
@@ -35,24 +37,52 @@ class CartService
         $response->sendHeaders();
     }
 
-    public function addProduct($id)
+    public function addProduct(Product $product)
     {
         //get cookie
         $cartCookie = $this->request->cookies->get('cart');
 
-        //if cookie is empty
+        /**
+         * If products have sale price
+         */
         if (!$cartCookie){
-            $cart = [
-                $id => 1
-            ];
+            $cart = [];
         } else{
             $cart = unserialize($cartCookie);
-            if (empty($cart[$id])){
-                $cart[$id] = 1;
-            } else{
-                $cart[$id]++;
-            }
         }
+
+        $count = count($cart) + 1;
+        $price = $product->getPrice();
+
+        if ($count % 3 == 0){
+            $price = $price * 0.5;
+        }
+
+        $cart[] = ['id' => $product->getId(), 'price' => $price];
+        /**
+         * If products have sale price
+         */
+
+
+        /**
+         * If not sales product
+         */
+        //if cookie is empty
+//        if (!$cartCookie){
+//            $cart = [
+//                $id => 1
+//            ];
+//        } else{
+//            $cart = unserialize($cartCookie);
+//            if (empty($cart[$id])){
+//                $cart[$id] = 1;
+//            } else{
+//                $cart[$id]++;
+//            }
+//        }
+        /**
+         * If not sales product
+         */
 
         $cartCookie = serialize($cart);
 
@@ -72,22 +102,21 @@ class CartService
             return [];
         }
         $cart = unserialize($cartCookie);
+        $products = [];
 
-        //get ids
-        $productsIds = array_keys($cart);
+        foreach ($cart as $item){
+            if (!isset($products[$item['id']])){
+                $products[$item['id']] = $this->doctrine
+                    ->getRepository('AppBundle:Product')
+                    ->find($item['id']);
+            }
 
-        //get products by ids
-        $products = $this->doctrine
-            ->getRepository('AppBundle:Product')
-            ->findBy(['id' => $productsIds])
-        ;
-
-        //get total price order
-        foreach ($products as $product){
-            $cartItem = new CartItem();
-            $cartItem->product = $product;
-            $cartItem->amount = $cart[$product->getId()];
-            $collection[] = $cartItem;
+            //get total price order
+            $orderItem = new OrderItem();
+            $orderItem->setOrder(null);
+            $orderItem->setPrice($item['price']);
+            $orderItem->setProduct($products[$item['id']]);
+            $collection[] = $orderItem;
         }
 
         //render

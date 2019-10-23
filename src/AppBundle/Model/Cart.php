@@ -32,7 +32,7 @@ class Cart
         $total = 0;
 
         foreach ($this->items as $item){
-            $total += $item->amount * $item->product->getPrice();
+            $total += $item->getPrice();
         }
 
         return $total;
